@@ -1,5 +1,4 @@
 ﻿using ControleDeMedicamentos.Dominio.Compartilhado;
-using ControleDeMedicamentos.Dominio.ModuloFuncionario;
 using System.Text.RegularExpressions;
 
 namespace ControleDeMedicamentos.Dominio.ModuloFornecedor;
@@ -41,6 +40,12 @@ public class Fornecedor : EntidadeBase<Fornecedor>
             erros += "O campo 'Telefone' é obrigatório.\n";
         else if (!Regex.IsMatch(Telefone, @"^\(?\d{2}\)?\s?(9\d{4}|\d{4})-?\d{4}$"))
             erros += "O campo 'Telefone' deve seguir o padrão (DDD) 0000-0000 ou (DDD) 00000-0000.\n";
+
+        if (string.IsNullOrWhiteSpace(Cnpj))
+            erros += "O campo 'Cnpj' é obrigatório.\n";
+        else if (!Regex.IsMatch(Cnpj, @"^\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}$"))
+            erros += "O campo 'Cnpj' deve seguir o formato 00.000.000/0000-00.\n";
+
         return erros;
     }
 }
