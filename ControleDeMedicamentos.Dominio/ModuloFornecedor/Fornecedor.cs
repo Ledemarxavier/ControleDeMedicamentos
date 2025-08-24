@@ -12,7 +12,7 @@ public class Fornecedor : EntidadeBase<Fornecedor>
     protected Fornecedor()
     { }
 
-    public Fornecedor(string nome, string telefone, string cnpj)
+    public Fornecedor(string nome, string telefone, string cnpj) : this()
     {
         Id = Guid.NewGuid();
         Nome = nome;
@@ -46,6 +46,6 @@ public class Fornecedor : EntidadeBase<Fornecedor>
         else if (!Regex.IsMatch(Cnpj, @"^\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}$"))
             erros += "O campo 'Cnpj' deve seguir o formato 00.000.000/0000-00.\n";
 
-        return erros;
+        return erros.Trim();
     }
 }
