@@ -2,6 +2,8 @@ using ControleDeMedicamentos.Infraestrutura.Arquivos.Compartilhado;
 using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloFornecedor;
 using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloFuncionario;
 using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloPaciente;
+using Serilog.Events;
+using Serilog;
 
 namespace ControleDeMedicamentos.WebApp;
 
@@ -18,6 +20,24 @@ public class Program
         builder.Services.AddScoped<RepositorioFornecedorEmArquivo>();
         builder.Services.AddScoped<RepositorioFuncionarioEmArquivo>();          // Injeta uma instância do serviço por requisição (ação) HTTP, essa instância acompanha a requisição do cliente
         builder.Services.AddScoped<RepositorioPacienteEmArquivo>();
+
+        var caminhoAppData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+
+        var caminhoArquivoLogs = Path.Combine(caminhoAppData, "ControleDeMedicamentos", "erro.log");
+
+        Log.Logger = new LoggerConfiguration()
+            .WriteTo.Console()
+            .WriteTo.File(caminhoArquivoLogs, LogEventLevel.Error)
+            .WriteTo.NewRelicLogs(
+                endpointUrl: "https://log-api.newrelic.com/log/v1",
+                applicationName: "controle-de-medicamentos",
+                licenseKey: "124264385b0bd151d6346c86454ff1b5FFFFNRAL"
+            )
+            .CreateLogger();
+
+        builder.Logging.ClearProviders();
+
+        builder.Services.AddSerilog();
 
         builder.Services.AddControllersWithViews();
 
