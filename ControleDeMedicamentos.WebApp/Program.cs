@@ -24,7 +24,7 @@ public class Program
         builder.Services.AddScoped<RepositorioPacienteEmArquivo>();
         builder.Services.AddScoped<RepositorioMedicamentoEmArquivo>();
 
-        SerilogConfig.AddSerilogConfig(builder.Services, builder.Logging, builder.Configuration);
+        builder.Services.AddSerilogConfig(builder.Logging, builder.Configuration);
 
         builder.Services.AddControllersWithViews();
 
