@@ -1,10 +1,5 @@
 using ControleDeMedicamentos.Infraestrutura.Arquivos.Compartilhado;
-using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloFornecedor;
-using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloFuncionario;
-using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloPaciente;
-using Serilog.Events;
-using Serilog;
-using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloMedicamento;
+
 using ControleDeMedicamentos.WebApp.DependencyInjection;
 
 namespace ControleDeMedicamentos.WebApp;
@@ -19,10 +14,7 @@ public class Program
 
         builder.Services.AddScoped((_) => new ContextoDados(true));
 
-        builder.Services.AddScoped<RepositorioFornecedorEmArquivo>();
-        builder.Services.AddScoped<RepositorioFuncionarioEmArquivo>();          // Injeta uma instância do serviço por requisição (ação) HTTP, essa instância acompanha a requisição do cliente
-        builder.Services.AddScoped<RepositorioPacienteEmArquivo>();
-        builder.Services.AddScoped<RepositorioMedicamentoEmArquivo>();
+        builder.Services.AddCamadaInfraestrutura();
 
         builder.Services.AddSerilogConfig(builder.Logging, builder.Configuration);
 

@@ -9,6 +9,7 @@ using ControleDeMedicamentos.Dominio.ModuloFuncionario;
 using ControleDeMedicamentos.Dominio.ModuloFornecedor;
 using ControleDeMedicamentos.Dominio.ModuloPaciente;
 using ControleDeMedicamentos.Dominio.ModuloMedicamento;
+using ControleDeMedicamentos.Dominio.ModuloPrescricao;
 
 namespace ControleDeMedicamentos.Infraestrutura.Arquivos.Compartilhado;
 
@@ -20,6 +21,8 @@ public class ContextoDados
 
     public List<Paciente> Pacientes { get; set; } = new List<Paciente>();
     public List<Medicamento> Medicamentos { get; set; } = new List<Medicamento>();
+
+    public List<Prescricao> Prescricoes { get; set; } = new List<Prescricao>();
 
     private string pastaArmazenamento = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
@@ -77,5 +80,7 @@ public class ContextoDados
         Pacientes = contextoArmazenado.Pacientes;
 
         Medicamentos = contextoArmazenado.Medicamentos;
+
+        Prescricoes = contextoArmazenado.Prescricoes;
     }
 }

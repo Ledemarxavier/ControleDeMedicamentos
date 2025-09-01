@@ -9,76 +9,66 @@ namespace ControleDeMedicamentos.Infraestrutura.Arquivos.Compartilhado;
 
 public abstract class RepositorioBaseEmArquivo<Tipo> where Tipo : EntidadeBase<Tipo>
 {
-	protected ContextoDados contextoDados;
-	protected List<Tipo> registros = new List<Tipo>();
+    protected ContextoDados contextoDados;
+    protected List<Tipo> registros = new List<Tipo>();
 
-	protected RepositorioBaseEmArquivo(ContextoDados contextoDados)
-	{
-		this.contextoDados = contextoDados;
+    protected RepositorioBaseEmArquivo(ContextoDados contextoDados)
+    {
+        this.contextoDados = contextoDados;
 
-		registros = ObterRegistros();
-	}
+        registros = ObterRegistros();
+    }
 
-	protected abstract List<Tipo> ObterRegistros();
+    protected abstract List<Tipo> ObterRegistros();
 
-	public void CadastrarRegistro(Tipo novoRegistro)
-	{
-		registros.Add(novoRegistro);
+    public void CadastrarRegistro(Tipo novoRegistro)
+    {
+        registros.Add(novoRegistro);
 
-		contextoDados.Salvar();
-	}
+        contextoDados.Salvar();
+    }
 
-	public bool EditarRegistro(Guid idSelecionado, Tipo registroAtualizado)
-	{
-		Tipo registroSelecionado = SelecionarRegistroPorId(idSelecionado);
+    public bool EditarRegistro(Guid idSelecionado, Tipo registroAtualizado)
+    {
+        Tipo registroSelecionado = SelecionarRegistroPorId(idSelecionado);
 
-		if (registroSelecionado == null)
-			return false;
+        if (registroSelecionado == null)
+            return false;
 
-		registroSelecionado.AtualizarRegistro(registroAtualizado);
+        registroSelecionado.AtualizarRegistro(registroAtualizado);
 
-		contextoDados.Salvar();
+        contextoDados.Salvar();
 
-		return true;
-	}
+        return true;
+    }
 
-	public bool ExcluirRegistro(Guid idSelecionado)
-	{
-		for (int i = 0; i < registros.Count; i++)
-		{
-			if (registros[i] == null)
-				continue;
-			else if (registros[i].Id == idSelecionado)
-			{
-				registros.Remove(registros[i]);
+    public bool ExcluirRegistro(Guid idSelecionado)
+    {
+        for (int i = 0; i < registros.Count; i++)
+        {
+            if (registros[i] == null)
+                continue;
+            else if (registros[i].Id == idSelecionado)
+            {
+                registros.Remove(registros[i]);
 
-				contextoDados.Salvar();
+                contextoDados.Salvar();
 
-				return true;
-			}
-		}
+                return true;
+            }
+        }
 
-		return false;
-	}
+        return false;
+    }
 
-	public List<Tipo> SelecionarRegistros()
-	{
-		return registros;
-	}
+    public List<Tipo> SelecionarRegistros()
+    {
+        return registros;
+    }
 
-	public Tipo SelecionarRegistroPorId(Guid idSelecionado)
-	{
-		for (int i = 0; i < registros.Count; i++)
-		{
-			Tipo registro = registros[i];
-
-			if (registro == null)
-				continue;
-
-			if (registro.Id == idSelecionado)
-				return registro;
-		}
-
-		return null;
-	}
+    public Tipo SelecionarRegistroPorId(Guid idSelecionado)
+    {
+        var registro = registros.Find(r => r.Id == idSelecionado);
+        return registro;
+    }
 }
