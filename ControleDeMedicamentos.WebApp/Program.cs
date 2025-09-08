@@ -22,11 +22,14 @@ public class Program
 
         var app = builder.Build();
 
-        if (!app.Environment.IsDevelopment())
+        // Middleware - Executam durante cada requisição e resposta
+        if (app.Environment.IsDevelopment())
+        {
+            app.UseDeveloperExceptionPage();
+        }
+        else
         {
             app.UseExceptionHandler("/Home/Error");
-
-            app.UseHsts();
         }
 
         app.UseHttpsRedirection();
