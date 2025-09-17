@@ -4,10 +4,6 @@ O **Controle de Medicamentos** é um sistema desenvolvido para gerenciar fornece
 
 ---
 
-![Mockup Multi-Dispositivos](https://imgur.com/iiJ5jUA.png)
-
----
-
 ## Especificação do Projeto - Requisitos
 
 ### 1. Módulo de Fornecedores
