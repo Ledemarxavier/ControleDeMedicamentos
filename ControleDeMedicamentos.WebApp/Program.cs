@@ -12,9 +12,7 @@ public class Program
 
         // Injeção de dependências
 
-        builder.Services.AddScoped((_) => new ContextoDados(true));
-
-        builder.Services.AddCamadaInfraestrutura();
+        builder.Services.AddCamadaInfraestrutura(builder.Configuration);
 
         builder.Services.AddSerilogConfig(builder.Logging, builder.Configuration);
 

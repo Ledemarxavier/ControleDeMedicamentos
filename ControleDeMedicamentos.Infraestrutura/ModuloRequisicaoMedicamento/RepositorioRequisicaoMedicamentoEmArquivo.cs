@@ -46,4 +46,14 @@ public class RepositorioRequisicaoMedicamentoEmArquivo
     {
         return requisicoesSaida;
     }
+
+    public RequisicaoEntrada? SelecionarRequisicaoEntradaPorId(Guid id)
+    {
+        return requisicoesEntrada.FirstOrDefault(r => r.Id == id);
+    }
+
+    public RequisicaoSaida? SelecionarRequisicaoSaidaPorId(Guid id)
+    {
+        return requisicoesSaida.FirstOrDefault(r => r.Id == id);
+    }
 }

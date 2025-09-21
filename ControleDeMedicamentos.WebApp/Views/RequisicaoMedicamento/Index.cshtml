@@ -34,14 +34,17 @@
                         <p class="card-text mb-0"><strong>Medicamento:</strong> @d.Medicamento</p>
                         <p class="card-text mb-0"><strong>Quantidade Requisitada:</strong> @d.QuantidadeRequisitada</p>
                     </div>
+                    
                     <div class="card-actions ms-auto me-3 mb-3 d-flex gap-1">
                         <a class="btn btn-sm btn-primary rounded-circle d-flex justify-content-center align-items-center"
                            style="height: 35px; width: 35px;"
-                           asp-action="Detalhes"
+                           asp-action="DetalhesRequisicaoEntrada"
                            asp-route-id="@d.Id">
                             <i class="bi bi-clipboard"></i>
                         </a>
+                        
                     </div>
+                    
                 </div>
             </div>
         }
@@ -64,14 +67,16 @@
                         <p class="card-text mb-0"><strong>Paciente:</strong> @d.Paciente</p>
                         <p class="card-text mb-0"><strong>Medicamentos Prescritos:</strong> @string.Join(", ", d.MedicamentosPrescritos.Select(x => x.Medicamento))</p>
                     </div>
-                    <div class="card-actions ms-auto me-3 mb-3 d-flex gap-1">
-                        <a class="btn btn-sm btn-primary rounded-circle d-flex justify-content-center align-items-center"
-                           style="height: 35px; width: 35px;"
-                           asp-action="Detalhes"
-                           asp-route-id="@d.Id">
-                            <i class="bi bi-clipboard"></i>
-                        </a>
-                    </div>
+                    
+            <div class="card-actions ms-auto me-3 mb-3 d-flex gap-1">
+            <a class="btn btn-sm btn-primary rounded-circle d-flex justify-content-center align-items-center"
+            style="height: 35px; width: 35px;"
+                           asp-action="DetalhesRequisicaoSaida"
+            asp-route-id="@d.Id">
+            <i class="bi bi-clipboard"></i>
+            </a>
+            </div>
+            
                 </div>
             </div>
         }

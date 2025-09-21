@@ -5,17 +5,17 @@ namespace ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloPrescricao;
 
 public class RepositorioPrescricaoEmArquivo : RepositorioBaseEmArquivo<Prescricao>
 {
-    public RepositorioPrescricaoEmArquivo(ContextoDados contextoDados) : base(contextoDados)
-    {
-    }
+	public RepositorioPrescricaoEmArquivo(ContextoDados contextoDados) : base(contextoDados)
+	{
+	}
 
-    public List<Prescricao> SelecionarPrescricoesDoPaciente(Guid idPaciente)
-    {
-        return registros.FindAll(p => p.Paciente.Id == idPaciente);
-    }
+	public List<Prescricao> SelecionarPrescricoesDoPaciente(Guid pacienteId)
+	{
+		return registros.FindAll(p => p.Paciente.Id == pacienteId);
+	}
 
-    protected override List<Prescricao> ObterRegistros()
-    {
-        return contextoDados.Prescricoes;
-    }
+	protected override List<Prescricao> ObterRegistros()
+	{
+		return contextoDados.Prescricoes;
+	}
 }

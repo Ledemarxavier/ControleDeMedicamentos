@@ -1,0 +1,40 @@
+﻿@model ControleDeMedicamentos.WebApp.Models.DetalhesRequisicaoSaidaViewModel
+
+@{
+    ViewBag.Titulo = "Detalhes da Requisição de Saída";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-lg rounded-3">
+        <div class="card-body">
+            <h3 class="card-title text-danger mb-4">
+                <i class="bi bi-box-arrow-up"></i> Requisição de Saída
+            </h3>
+
+            <p class="card-text"><strong>ID:</strong> @Model.Id</p>
+            <p class="card-text"><strong>Data de Ocorrência:</strong> @Model.DataOcorrencia.ToString("dd/MM/yyyy HH:mm")</p>
+            <p class="card-text"><strong>Funcionário:</strong> @Model.Funcionario</p>
+            <p class="card-text"><strong>Paciente:</strong> @Model.Paciente</p>
+            <p class="card-text"><strong>Prescrição:</strong> @Model.Prescricao</p>
+
+            <h5 class="mt-4 text-primary">Medicamentos Prescritos</h5>
+            <ul class="list-group">
+                @foreach (var med in Model.MedicamentosPrescritos)
+                {
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>@med.Medicamento</strong> - @med.Dosagem (@med.Periodo)
+                        </div>
+                        <span class="badge bg-primary rounded-pill">@med.Quantidade</span>
+                    </li>
+                }
+            </ul>
+        </div>
+
+        <div class="card-footer d-flex justify-content-end gap-2">
+            <a class="btn btn-secondary" asp-action="Index">
+                <i class="bi bi-arrow-left"></i> Voltar
+            </a>
+        </div>
+    </div>
+</div>

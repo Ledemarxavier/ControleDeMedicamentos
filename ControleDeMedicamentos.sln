@@ -5,15 +5,21 @@ VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. Apresentação", "1. Apresentação", "{99E6EDF5-F9BA-43A5-A0A0-38478796EA7D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControleDeMedicamentos.WebApp", "ControleDeMedicamentos.WebApp\ControleDeMedicamentos.WebApp.csproj", "{9F65B31E-46CE-4DB6-8484-88F0C277ACB6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControleDeMedicamentos.WebApp", "ControleDeMedicamentos.WebApp\ControleDeMedicamentos.WebApp.csproj", "{9F65B31E-46CE-4DB6-8484-88F0C277ACB6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. Domínio", "2. Domínio", "{70EBB42D-FCAA-4118-A974-CE4A6E0B54C5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControleDeMedicamentos.Dominio", "ControleDeMedicamentos.Dominio\ControleDeMedicamentos.Dominio.csproj", "{AF48CC1D-2E1A-40FC-94BB-1A4244F5965E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControleDeMedicamentos.Dominio", "ControleDeMedicamentos.Dominio\ControleDeMedicamentos.Dominio.csproj", "{AF48CC1D-2E1A-40FC-94BB-1A4244F5965E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Infraestrutura", "3. Infraestrutura", "{F6ED5C43-E0AF-4839-83B8-C515717ED43A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControleDeMedicamentos.Infraestrutura.Arquivos", "ControleDeMedicamentos.Infraestrutura\ControleDeMedicamentos.Infraestrutura.Arquivos.csproj", "{81E38EB8-342D-4756-8ECC-85408570730F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControleDeMedicamentos.Infraestrutura.Arquivos", "ControleDeMedicamentos.Infraestrutura\ControleDeMedicamentos.Infraestrutura.Arquivos.csproj", "{81E38EB8-342D-4756-8ECC-85408570730F}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "ControleDeMedicamentos.Util.SqlProject", "ControleDeMedicamentos.Util.SqlProject\ControleDeMedicamentos.Util.SqlProject.sqlproj", "{88918ED4-5119-4C58-BA85-E2D671EE6774}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4. Utilidade", "4. Utilidade", "{1D41A51C-45D0-4EA9-A8EB-BD657424DE96}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControleDeMedicamentos.Infraestrutura.SqlServe", "ControleDeMedicamentos.Infraestrutura.SqlServe\ControleDeMedicamentos.Infraestrutura.SqlServe.csproj", "{8AA42C11-94DD-452A-A269-C6B2218B1697}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +39,16 @@ Global
 		{81E38EB8-342D-4756-8ECC-85408570730F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{81E38EB8-342D-4756-8ECC-85408570730F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{81E38EB8-342D-4756-8ECC-85408570730F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88918ED4-5119-4C58-BA85-E2D671EE6774}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88918ED4-5119-4C58-BA85-E2D671EE6774}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88918ED4-5119-4C58-BA85-E2D671EE6774}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{88918ED4-5119-4C58-BA85-E2D671EE6774}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88918ED4-5119-4C58-BA85-E2D671EE6774}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88918ED4-5119-4C58-BA85-E2D671EE6774}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{8AA42C11-94DD-452A-A269-C6B2218B1697}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AA42C11-94DD-452A-A269-C6B2218B1697}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AA42C11-94DD-452A-A269-C6B2218B1697}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AA42C11-94DD-452A-A269-C6B2218B1697}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -41,6 +57,8 @@ Global
 		{9F65B31E-46CE-4DB6-8484-88F0C277ACB6} = {99E6EDF5-F9BA-43A5-A0A0-38478796EA7D}
 		{AF48CC1D-2E1A-40FC-94BB-1A4244F5965E} = {70EBB42D-FCAA-4118-A974-CE4A6E0B54C5}
 		{81E38EB8-342D-4756-8ECC-85408570730F} = {F6ED5C43-E0AF-4839-83B8-C515717ED43A}
+		{88918ED4-5119-4C58-BA85-E2D671EE6774} = {1D41A51C-45D0-4EA9-A8EB-BD657424DE96}
+		{8AA42C11-94DD-452A-A269-C6B2218B1697} = {F6ED5C43-E0AF-4839-83B8-C515717ED43A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {473AD03E-5891-4780-BAFA-051A2A7BF518}
