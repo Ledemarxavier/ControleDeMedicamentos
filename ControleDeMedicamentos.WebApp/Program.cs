@@ -1,5 +1,3 @@
-using ControleDeMedicamentos.Infraestrutura.Arquivos.Compartilhado;
-
 using ControleDeMedicamentos.WebApp.DependencyInjection;
 
 namespace ControleDeMedicamentos.WebApp;

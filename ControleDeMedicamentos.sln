@@ -19,7 +19,7 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "ControleDeMedicamentos.Util
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4. Utilidade", "4. Utilidade", "{1D41A51C-45D0-4EA9-A8EB-BD657424DE96}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControleDeMedicamentos.Infraestrutura.SqlServe", "ControleDeMedicamentos.Infraestrutura.SqlServe\ControleDeMedicamentos.Infraestrutura.SqlServe.csproj", "{8AA42C11-94DD-452A-A269-C6B2218B1697}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControleDeMedicamentos.Infraestrutura.BancoDeDados", "ControleDeMedicamentos.Infraestrutura.SqlServe\ControleDeMedicamentos.Infraestrutura.BancoDeDados.csproj", "{8AA42C11-94DD-452A-A269-C6B2218B1697}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,6 +1,10 @@
-﻿using ControleDeMedicamentos.Dominio.ModuloMedicamento;
+﻿using ControleDeMedicamentos.Dominio.ModuloFornecedor;
+using ControleDeMedicamentos.Dominio.ModuloMedicamento;
 using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloFornecedor;
 using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloMedicamento;
+using ControleDeMedicamentos.Infraestrutura.BancoDeDados.ModuloFornecedor;
+using ControleDeMedicamentos.Infraestrutura.BancoDeDados.ModuloMedicamento;
+using ControleDeMedicamentos.Infraestrutura.SqlServe.ModuloPaciente;
 using ControleDeMedicamentos.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,12 +12,12 @@ namespace ControleDeMedicamentos.WebApp.Controllers;
 
 public class MedicamentoController : Controller
 {
-    private readonly RepositorioMedicamentoEmArquivo repositorioMedicamento;
-    private readonly RepositorioFornecedorEmArquivo repositorioFornecedor;
+    private readonly RepositorioMedicamentoEmBancoDeDados repositorioMedicamento;
+    private readonly RepositorioFornecedorEmBancoDeDados repositorioFornecedor;
 
     public MedicamentoController(
-        RepositorioMedicamentoEmArquivo repositorioMedicamento,
-        RepositorioFornecedorEmArquivo repositorioFornecedor
+        RepositorioMedicamentoEmBancoDeDados repositorioMedicamento,
+        RepositorioFornecedorEmBancoDeDados repositorioFornecedor
     )
     {
         this.repositorioMedicamento = repositorioMedicamento;

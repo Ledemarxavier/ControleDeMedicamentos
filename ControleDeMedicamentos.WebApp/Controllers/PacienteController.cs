@@ -10,9 +10,9 @@ namespace ControleDeMedicamentos.WebApp.Controllers;
 
 public class PacienteController : Controller
 {
-    private readonly RepositorioPacienteEmSql repositorioPaciente;
+    private readonly RepositorioPacienteEmBancoDeDados repositorioPaciente;
 
-    public PacienteController(RepositorioPacienteEmSql repositorioPaciente)
+    public PacienteController(RepositorioPacienteEmBancoDeDados repositorioPaciente)
     {
         this.repositorioPaciente = repositorioPaciente;
     }

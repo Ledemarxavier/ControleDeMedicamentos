@@ -4,11 +4,11 @@ using System.Data;
 
 namespace ControleDeMedicamentos.Infraestrutura.SqlServe.ModuloPaciente;
 
-public class RepositorioPacienteEmSql
+public class RepositorioPacienteEmBancoDeDados : IRepositorioPaciente
 {
     private readonly IDbConnection connection;
 
-    public RepositorioPacienteEmSql(IDbConnection connection)
+    public RepositorioPacienteEmBancoDeDados(IDbConnection connection)
     {
         this.connection = connection;
     }

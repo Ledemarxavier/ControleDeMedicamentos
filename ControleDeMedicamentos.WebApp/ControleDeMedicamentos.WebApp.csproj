@@ -14,7 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ControleDeMedicamentos.Dominio\ControleDeMedicamentos.Dominio.csproj" />
-    <ProjectReference Include="..\ControleDeMedicamentos.Infraestrutura.SqlServe\ControleDeMedicamentos.Infraestrutura.SqlServe.csproj" />
+    <ProjectReference Include="..\ControleDeMedicamentos.Infraestrutura.SqlServe\ControleDeMedicamentos.Infraestrutura.BancoDeDados.csproj" />
     <ProjectReference Include="..\ControleDeMedicamentos.Infraestrutura\ControleDeMedicamentos.Infraestrutura.Arquivos.csproj" />
   </ItemGroup>
 
