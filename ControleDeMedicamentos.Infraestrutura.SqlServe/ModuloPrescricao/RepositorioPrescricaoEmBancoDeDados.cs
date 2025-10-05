@@ -57,9 +57,10 @@ public class RepositorioPrescricaoEmBancoDeDados(IDbConnection connection)
             }, tx);
         }
         tx.Commit();
+        connection.Close();
     }
 
-    public bool EditarRegistro(Guid idSelecionado, Prescricao atualizada)
+    public void Editar(Guid idPrescricao, Prescricao atualizada)
     {
         const string updatePrescricao = @"
             UPDATE [TBPrescricao]
@@ -72,11 +73,11 @@ public class RepositorioPrescricaoEmBancoDeDados(IDbConnection connection)
 
         connection.Open();
 
-        using var tx = connection.BeginTransaction();
+        var tx = connection.BeginTransaction();
 
-        var linhas = connection.Execute(updatePrescricao, new
+        connection.Execute(updatePrescricao, new
         {
-            Id = idSelecionado,
+            Id = idPrescricao,
             atualizada.Descricao,
             atualizada.DataValidade,
             atualizada.CrmMedico,
@@ -86,7 +87,7 @@ public class RepositorioPrescricaoEmBancoDeDados(IDbConnection connection)
         // Limpa medicamentos antigos e insere novamente
         const string deleteMedicamentos = @"DELETE FROM [TBMedicamentoPrescrito] WHERE [PrescricaoId] = @PrescricaoId;";
 
-        connection.Execute(deleteMedicamentos, new { PrescricaoId = idSelecionado }, tx);
+        connection.Execute(deleteMedicamentos, new { PrescricaoId = idPrescricao }, tx);
 
         const string insertMedicamento = @"
             INSERT INTO [TBMedicamentoPrescrito]
@@ -100,17 +101,20 @@ public class RepositorioPrescricaoEmBancoDeDados(IDbConnection connection)
             connection.Execute(insertMedicamento, new
             {
                 med.Id,
-                PrescricaoId = idSelecionado,
+                PrescricaoId = idPrescricao,
                 MedicamentoId = med.Medicamento.Id,
                 med.Dosagem,
                 med.Periodo,
                 med.Quantidade
             }, tx);
             tx.Commit();
+
+            connection.Close();
         }
 
-        return linhas > 0;
+        
     }
+
 
     public bool ExcluirRegistro(Guid idSelecionado)
     {
@@ -207,24 +211,24 @@ public class RepositorioPrescricaoEmBancoDeDados(IDbConnection connection)
             {
                 m.Fornecedor = f;
                 mp.Medicamento = m;
-                mp.Prescricao = p; // temos a propriedade agora
+                mp.Prescricao = p; 
                 return (p.Id, mp); // devolvo também a chave para o lookup
             },
             splitOn: "MedicamentoId,FornecedorId,PrescricaoId"
         );
 
         // 3) Distribui os medicamentos nas respectivas prescrições
-        var lookup = medicamentosPrescritos.ToLookup(x => x.PrescricaoId, x => x.MP);
+        var dicionario = medicamentosPrescritos.ToLookup(x => x.PrescricaoId, x => x.MP);
 
         foreach (var p in prescricoes)
-            p.MedicamentosPrescritos = lookup[p.Id].ToList();
+            p.MedicamentosPrescritos = dicionario[p.Id].ToList();
 
         return prescricoes;
     }
 
-    public Prescricao? SelecionarRegistroPorId(Guid idSelecionado)
+    public Prescricao? SelecionarRegistroPorId(Guid id)
     {
-        return SelecionarRegistros().FirstOrDefault(p => p.Id == idSelecionado);
+        return SelecionarRegistros().FirstOrDefault(x => x.Id.Equals(id));
     }
 
     public List<Prescricao> SelecionarPrescricoesDoPaciente(Guid idPaciente)

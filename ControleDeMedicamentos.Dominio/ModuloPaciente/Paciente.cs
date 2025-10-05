@@ -17,7 +17,7 @@ public class Paciente : EntidadeBase<Paciente>
     public string CartaoSUS { get; set; }
     public string Cpf { get; set; }
 
-    protected Paciente()
+    public Paciente()
     { }
 
     public Paciente(string nome, string telefone, string cartaosus, string cpf) : this()

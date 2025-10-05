@@ -13,6 +13,7 @@ using ControleDeMedicamentos.Infraestrutura.BancoDeDados.ModuloFornecedor;
 using ControleDeMedicamentos.Infraestrutura.BancoDeDados.ModuloFuncionario;
 using ControleDeMedicamentos.Infraestrutura.BancoDeDados.ModuloMedicamento;
 using ControleDeMedicamentos.Infraestrutura.BancoDeDados.ModuloPrescricao;
+using ControleDeMedicamentos.Infraestrutura.BancoDeDados.ModuloRequisicaoMedicamento;
 using ControleDeMedicamentos.Infraestrutura.SqlServe.ModuloPaciente;
 using Microsoft.Data.SqlClient;
 using System.Data;
@@ -35,6 +36,7 @@ public static class InfraestruturaConfig
         services.AddScoped<RepositorioFuncionarioEmBancoDeDados>();
         services.AddScoped<RepositorioMedicamentoEmBancoDeDados>();
         services.AddScoped<RepositorioPrescricaoEmBancoDeDados>();
+        services.AddScoped<RepositorioRequisicaoMedicamentoEmBancoDeDados>();
 
         services.AddScoped((_) => new ContextoDados(true));
 

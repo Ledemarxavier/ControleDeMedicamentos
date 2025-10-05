@@ -11,7 +11,7 @@ namespace ControleDeMedicamentos.WebApp.Controllers;
 
 public class PrescricaoController : Controller
 {
-    private readonly ContextoDados contexto;
+    
     private readonly RepositorioPrescricaoEmBancoDeDados repositorioPrescricao;
     private readonly RepositorioMedicamentoEmBancoDeDados repositorioMedicamento;
     private readonly RepositorioPacienteEmBancoDeDados repositorioPaciente;
@@ -23,7 +23,7 @@ public class PrescricaoController : Controller
         RepositorioPacienteEmBancoDeDados repositorioPaciente
     )
     {
-        this.contexto = contexto;
+        
         this.repositorioPrescricao = repositorioPrescricao;
         this.repositorioMedicamento = repositorioMedicamento;
         this.repositorioPaciente = repositorioPaciente;
@@ -111,7 +111,7 @@ public class PrescricaoController : Controller
             pacienteSelecionado
         );
 
-        repositorioPrescricao.EditarRegistro(editarVm.Id, PrescricaoEditada);
+        repositorioPrescricao.Editar(editarVm.Id, PrescricaoEditada);
 
         return RedirectToAction(nameof(Index));
     }
@@ -171,7 +171,7 @@ public class PrescricaoController : Controller
             adicionarMedicamentoVm.QuantidadeMedicamento
         );
 
-        repositorioPrescricao.EditarRegistro(idPrescricao, prescricaoSelecionada);
+        repositorioPrescricao.Editar(idPrescricao, prescricaoSelecionada);
 
         return RedirectToAction(nameof(Gerenciar), new { id = idPrescricao });
     }
@@ -183,7 +183,7 @@ public class PrescricaoController : Controller
 
         prescricaoSelecionada.RemoverMedicamentoPrescrito(idMedicamentoPrescrito);
 
-        repositorioPrescricao.EditarRegistro(idPrescricao, prescricaoSelecionada);
+        repositorioPrescricao.Editar(idPrescricao, prescricaoSelecionada);
 
         return RedirectToAction(nameof(Gerenciar), new { id = idPrescricao });
     }

@@ -5,6 +5,11 @@ using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloMedicamento;
 using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloPaciente;
 using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloPrescricao;
 using ControleDeMedicamentos.Infraestrutura.Arquivos.ModuloRequisicaoMedicamento;
+using ControleDeMedicamentos.Infraestrutura.BancoDeDados.ModuloFuncionario;
+using ControleDeMedicamentos.Infraestrutura.BancoDeDados.ModuloMedicamento;
+using ControleDeMedicamentos.Infraestrutura.BancoDeDados.ModuloPrescricao;
+using ControleDeMedicamentos.Infraestrutura.BancoDeDados.ModuloRequisicaoMedicamento;
+using ControleDeMedicamentos.Infraestrutura.SqlServe.ModuloPaciente;
 using ControleDeMedicamentos.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -13,19 +18,19 @@ namespace ControleDeMedicamentos.WebApp.Controllers;
 
 public class RequisicaoMedicamentoController : Controller
 {
-	private readonly RepositorioRequisicaoMedicamentoEmArquivo repositorioRequisicaoMedicamento;
-	private readonly RepositorioMedicamentoEmArquivo repositorioMedicamento;
-	private readonly RepositorioFuncionarioEmArquivo repositorioFuncionario;
-	private readonly RepositorioPacienteEmArquivo repositorioPaciente;
-	private readonly RepositorioPrescricaoEmArquivo repositorioPrescricao;
+	private readonly RepositorioRequisicaoMedicamentoEmBancoDeDados repositorioRequisicaoMedicamento;
+	private readonly RepositorioMedicamentoEmBancoDeDados repositorioMedicamento;
+	private readonly RepositorioFuncionarioEmBancoDeDados repositorioFuncionario;
+	private readonly RepositorioPacienteEmBancoDeDados repositorioPaciente;
+	private readonly RepositorioPrescricaoEmBancoDeDados repositorioPrescricao;
 
 	public RequisicaoMedicamentoController(
 		ContextoDados contexto,
-		RepositorioRequisicaoMedicamentoEmArquivo repositorioRequisicaoMedicamento,
-		RepositorioMedicamentoEmArquivo repositorioMedicamento,
-		RepositorioFuncionarioEmArquivo repositorioFuncionario,
-		 RepositorioPacienteEmArquivo repositorioPaciente,
-		RepositorioPrescricaoEmArquivo repositorioPrescricao
+		RepositorioRequisicaoMedicamentoEmBancoDeDados repositorioRequisicaoMedicamento,
+		RepositorioMedicamentoEmBancoDeDados repositorioMedicamento,
+		RepositorioFuncionarioEmBancoDeDados repositorioFuncionario,
+		 RepositorioPacienteEmBancoDeDados repositorioPaciente,
+		RepositorioPrescricaoEmBancoDeDados repositorioPrescricao
 	)
 	{
 		this.repositorioRequisicaoMedicamento = repositorioRequisicaoMedicamento;
@@ -186,10 +191,11 @@ public class RequisicaoMedicamentoController : Controller
 	{
 		var requisicao = repositorioRequisicaoMedicamento.SelecionarRequisicaoSaidaPorId(id);
 
-		if (requisicao == null)
-			return NotFound();
+		if (requisicao?.Prescricao == null || requisicao.Prescricao.Paciente == null)
+			return BadRequest("Prescrição ou paciente não encontrados para esta requisição.");
 
-		var detalhesVm = new DetalhesRequisicaoSaidaViewModel(
+
+        var detalhesVm = new DetalhesRequisicaoSaidaViewModel(
 			requisicao.Id,
 			requisicao.DataOcorrencia,
 			requisicao.Funcionario.Nome,
