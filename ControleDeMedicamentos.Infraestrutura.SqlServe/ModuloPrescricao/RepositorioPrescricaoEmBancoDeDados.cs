@@ -23,6 +23,10 @@ public class RepositorioPrescricaoEmBancoDeDados(IDbConnection connection)
                 (@Id, @Descricao, @DataEmissao, @DataValidade, @CrmMedico, @PacienteId);
         ";
 
+        connection.Open();
+
+        using var tx = connection.BeginTransaction();
+
         connection.Execute(insertPrescricao, new
         {
             nova.Id,
@@ -31,7 +35,7 @@ public class RepositorioPrescricaoEmBancoDeDados(IDbConnection connection)
             nova.DataValidade,
             nova.CrmMedico,
             PacienteId = nova.Paciente.Id
-        });
+        }, tx);
 
         const string insertMedicamento = @"
             INSERT INTO [TBMedicamentoPrescrito]
@@ -50,8 +54,9 @@ public class RepositorioPrescricaoEmBancoDeDados(IDbConnection connection)
                 med.Dosagem,
                 med.Periodo,
                 med.Quantidade
-            });
+            }, tx);
         }
+        tx.Commit();
     }
 
     public bool EditarRegistro(Guid idSelecionado, Prescricao atualizada)
@@ -65,6 +70,10 @@ public class RepositorioPrescricaoEmBancoDeDados(IDbConnection connection)
              WHERE [Id] = @Id;
         ";
 
+        connection.Open();
+
+        using var tx = connection.BeginTransaction();
+
         var linhas = connection.Execute(updatePrescricao, new
         {
             Id = idSelecionado,
@@ -72,12 +81,12 @@ public class RepositorioPrescricaoEmBancoDeDados(IDbConnection connection)
             atualizada.DataValidade,
             atualizada.CrmMedico,
             PacienteId = atualizada.Paciente.Id
-        });
+        }, tx);
 
         // Limpa medicamentos antigos e insere novamente
         const string deleteMedicamentos = @"DELETE FROM [TBMedicamentoPrescrito] WHERE [PrescricaoId] = @PrescricaoId;";
 
-        connection.Execute(deleteMedicamentos, new { PrescricaoId = idSelecionado });
+        connection.Execute(deleteMedicamentos, new { PrescricaoId = idSelecionado }, tx);
 
         const string insertMedicamento = @"
             INSERT INTO [TBMedicamentoPrescrito]
@@ -96,7 +105,8 @@ public class RepositorioPrescricaoEmBancoDeDados(IDbConnection connection)
                 med.Dosagem,
                 med.Periodo,
                 med.Quantidade
-            });
+            }, tx);
+            tx.Commit();
         }
 
         return linhas > 0;
@@ -104,6 +114,7 @@ public class RepositorioPrescricaoEmBancoDeDados(IDbConnection connection)
 
     public bool ExcluirRegistro(Guid idSelecionado)
     {
+        connection.Open();
         using var tx = connection.BeginTransaction();
 
         connection.Execute(
@@ -123,11 +134,25 @@ public class RepositorioPrescricaoEmBancoDeDados(IDbConnection connection)
     {
         // 1) Carrega prescrições com paciente
         const string sqlPrescricoes = @"
-            SELECT p.[Id], p.[Descricao], p.[DataEmissao], p.[DataValidade], p.[CrmMedico],
-                   pa.[Id] AS PacienteId, pa.[Nome], pa.[Telefone], pa.[CartaoSus], pa.[Cpf]
-              FROM [TBPrescricao] p
-              JOIN [TBPaciente]  pa ON pa.[Id] = p.[PacienteId];
-        ";
+            SELECT 
+                -- Bloco da Prescricao
+                p.[Id],
+                p.[Descricao],
+                p.[DataEmissao],
+                p.[DataValidade],
+                p.[CrmMedico],
+
+                -- Marcador de split entre Prescricao -> Paciente
+                p.[PacienteId] AS PacienteId,
+
+                -- Bloco do Paciente (note o Id com nome 'Id' para mapear Paciente.Id)
+                pa.[Id]        AS [Id],
+                pa.[Nome],
+                pa.[Telefone],
+                pa.[CartaoSus],
+                pa.[Cpf]
+            FROM [TBPrescricao] p
+            INNER JOIN [TBPaciente] pa ON pa.[Id] = p.[PacienteId];";
 
         var prescricoes = connection.Query<Prescricao, Paciente, Prescricao>(
             sqlPrescricoes,

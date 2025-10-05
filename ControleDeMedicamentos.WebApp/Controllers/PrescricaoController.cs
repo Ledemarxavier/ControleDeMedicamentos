@@ -164,14 +164,14 @@ public class PrescricaoController : Controller
 
         var medicamentoSelecionado = repositorioMedicamento.SelecionarRegistroPorId(adicionarMedicamentoVm.MedicamentoId);
 
-        prescricaoSelecionada.AdicionarMedicamentoPrescrito(
+        prescricaoSelecionada!.AdicionarMedicamentoPrescrito(
             medicamentoSelecionado,
             adicionarMedicamentoVm.DosagemMedicamento,
             adicionarMedicamentoVm.PeriodoMedicamento,
             adicionarMedicamentoVm.QuantidadeMedicamento
         );
 
-        contexto.Salvar();
+        repositorioPrescricao.EditarRegistro(idPrescricao, prescricaoSelecionada);
 
         return RedirectToAction(nameof(Gerenciar), new { id = idPrescricao });
     }
@@ -183,7 +183,7 @@ public class PrescricaoController : Controller
 
         prescricaoSelecionada.RemoverMedicamentoPrescrito(idMedicamentoPrescrito);
 
-        contexto.Salvar();
+        repositorioPrescricao.EditarRegistro(idPrescricao, prescricaoSelecionada);
 
         return RedirectToAction(nameof(Gerenciar), new { id = idPrescricao });
     }
